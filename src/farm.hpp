@@ -24,6 +24,5 @@ public:
     int get_current_day();
     bool can_plant(int row, int column);
     bool can_harvest(int row, int column);
-
     void harvest(int row, int column);
 };

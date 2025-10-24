@@ -34,7 +34,7 @@ std::string Farm::get_symbol(int row, int column) {
 
 void Farm::plant(int row, int column, Plot *plot) {
   if (!can_plant(row, column)) {
-    return;  // Cannot plant on non-empty plot
+    return;
   }
   Plot *current_plot = plots.at(row).at(column);
   plots.at(row).at(column) = plot;
