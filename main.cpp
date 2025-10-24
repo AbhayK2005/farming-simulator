@@ -15,6 +15,8 @@ int main() {
 
   while(game_in_progress) {
     ansi_clear();
+    std::cout << "[w]up, [s]down, [a]left, [d]right, [c]plant carrot, [h]harvest, [e]end day, [q]quit" << std::endl;
+    std::cout << "Day: " << farm.get_current_day() << std::endl;
     std::cout << printer.pp() << std::endl;
     std::cin >> player_input;
 

@@ -39,9 +39,14 @@ void Farm::plant(int row, int column, Plot *plot) {
 }
 
 void Farm::end_day() {
+  day_counter++;
   for(int i = 0; i < rows; i++) {
     for(int j = 0; j < columns; j++) {
       plots.at(i).at(j)->end_day();
     }
   }
+}
+
+int Farm::get_current_day() {
+  return day_counter;
 }
