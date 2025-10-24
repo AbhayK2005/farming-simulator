@@ -55,3 +55,90 @@ TEST_CASE( "it allows us to plant a carrot" ) {
     farm.plant(0, 1, &carrot);
     REQUIRE( farm.get_symbol(0, 1) == "v" );
 }
+
+TEST_CASE( "it starts on day 1" ) {
+    Player player;
+    Farm farm(1, 1, &player);
+    REQUIRE( farm.get_current_day() == 1 );
+}
+
+TEST_CASE( "it increments day when ending day" ) {
+    Player player;
+    Farm farm(1, 1, &player);
+    farm.end_day();
+    REQUIRE( farm.get_current_day() == 2 );
+}
+
+TEST_CASE( "it increments day multiple times" ) {
+    Player player;
+    Farm farm(1, 1, &player);
+    farm.end_day();
+    farm.end_day();
+    farm.end_day();
+    REQUIRE( farm.get_current_day() == 4 );
+}
+
+TEST_CASE( "it reports that empty soil can be planted" ) {
+    Player player;
+    Farm farm(1, 2, &player);
+    REQUIRE( farm.can_plant(0, 1) == true );
+}
+
+TEST_CASE( "it reports that occupied soil cannot be planted" ) {
+    Player player;
+    Farm farm(1, 2, &player);
+    Carrot *carrot = new Carrot();
+    farm.plant(0, 1, carrot);
+    REQUIRE( farm.can_plant(0, 1) == false );
+}
+
+TEST_CASE( "it prevents planting on occupied plots" ) {
+    Player player;
+    Farm farm(1, 2, &player);
+    Carrot *carrot1 = new Carrot();
+    Carrot *carrot2 = new Carrot();
+    farm.plant(0, 1, carrot1);
+    farm.plant(0, 1, carrot2);
+    REQUIRE( farm.get_symbol(0, 1) == "v" );
+    delete carrot2;  // Clean up since it wasn't planted
+}
+
+TEST_CASE( "it reports that empty soil cannot be harvested" ) {
+    Player player;
+    Farm farm(1, 2, &player);
+    REQUIRE( farm.can_harvest(0, 1) == false );
+}
+
+TEST_CASE( "it reports that immature plants cannot be harvested" ) {
+    Player player;
+    Farm farm(1, 2, &player);
+    Carrot *carrot = new Carrot();
+    farm.plant(0, 1, carrot);
+    REQUIRE( farm.can_harvest(0, 1) == false );
+}
+
+TEST_CASE( "it reports that mature plants can be harvested" ) {
+    Player player;
+    Farm farm(1, 2, &player);
+    Carrot *carrot = new Carrot();
+    farm.plant(0, 1, carrot);
+    farm.end_day();
+    REQUIRE( farm.can_harvest(0, 1) == true );
+}
+
+TEST_CASE( "it allows harvesting of mature plants" ) {
+    Player player;
+    Farm farm(1, 2, &player);
+    Carrot *carrot = new Carrot();
+    farm.plant(0, 1, carrot);
+    farm.end_day();
+    farm.harvest(0, 1);
+    REQUIRE( farm.get_symbol(0, 1) == "." );
+}
+
+TEST_CASE( "it prevents harvesting empty plots" ) {
+    Player player;
+    Farm farm(1, 2, &player);
+    farm.harvest(0, 1);
+    REQUIRE( farm.get_symbol(0, 1) == "." );
+}

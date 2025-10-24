@@ -33,6 +33,9 @@ std::string Farm::get_symbol(int row, int column) {
 }
 
 void Farm::plant(int row, int column, Plot *plot) {
+  if (!can_plant(row, column)) {
+    return;  // Cannot plant on non-empty plot
+  }
   Plot *current_plot = plots.at(row).at(column);
   plots.at(row).at(column) = plot;
   delete current_plot;
@@ -49,4 +52,22 @@ void Farm::end_day() {
 
 int Farm::get_current_day() {
   return day_counter;
+}
+
+bool Farm::can_plant(int row, int column) {
+  return plots.at(row).at(column)->is_empty();
+}
+
+bool Farm::can_harvest(int row, int column) {
+  return plots.at(row).at(column)->is_mature();
+}
+
+void Farm::harvest(int row, int column) {
+  if (!can_harvest(row, column)) {
+    return;
+  }
+  Plot *current_plot = plots.at(row).at(column);
+  Soil *soil = new Soil();
+  plots.at(row).at(column) = soil;
+  delete current_plot;
 }

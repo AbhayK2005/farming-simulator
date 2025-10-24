@@ -31,8 +31,14 @@ int main() {
     } else if(player_input == "w") {
       player.move_up();
     } else if(player_input == "c") {
-      Carrot *carrot = new Carrot();
-      farm.plant(player.row(), player.column(), carrot);
+      if(farm.can_plant(player.row(), player.column())) {
+        Carrot *carrot = new Carrot();
+        farm.plant(player.row(), player.column(), carrot);
+      }
+    } else if(player_input == "h") {
+      if(farm.can_harvest(player.row(), player.column())) {
+        farm.harvest(player.row(), player.column());
+      }
     } else if(player_input == "e") {
       farm.end_day();
     }

@@ -24,3 +24,45 @@ TEST_CASE( "it moves the player down" ) {
     REQUIRE( player.row() == 1 );
     REQUIRE( player.column() == 0 );
 }
+
+TEST_CASE( "it moves the player to the left" ) {
+    Player player;
+    player.move_right();
+    player.move_left();
+    REQUIRE( player.row() == 0 );
+    REQUIRE( player.column() == 0 );
+}
+
+TEST_CASE( "it moves the player up" ) {
+    Player player;
+    player.move_down();
+    player.move_up();
+    REQUIRE( player.row() == 0 );
+    REQUIRE( player.column() == 0 );
+}
+
+TEST_CASE( "it prevents the player from moving left past boundary" ) {
+    Player player;
+    player.boundaries(1, 1);
+    player.move_left();
+    REQUIRE( player.column() == 0 );
+}
+
+TEST_CASE( "it prevents the player from moving up past boundary" ) {
+    Player player;
+    player.boundaries(1, 1);
+    player.move_up();
+    REQUIRE( player.row() == 0 );
+}
+
+TEST_CASE( "it prevents the player from moving right past boundary" ) {
+    Player player;
+    player.boundaries(1, 1);
+    REQUIRE( player.column() == 0 );
+}
+
+TEST_CASE( "it prevents the player from moving down past boundary" ) {
+    Player player;
+    player.boundaries(1, 1);
+    REQUIRE( player.row() == 0 );
+}

@@ -21,6 +21,9 @@ public:
     std::string get_symbol(int row, int column);
     void plant(int row, int column, Plot *plot);
     void end_day();
-
     int get_current_day();
+    bool can_plant(int row, int column);
+    bool can_harvest(int row, int column);
+
+    void harvest(int row, int column);
 };

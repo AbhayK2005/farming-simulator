@@ -15,3 +15,13 @@ TEST_CASE( "end_day is a no-op" ) {
     soil.end_day();
     REQUIRE( soil.symbol() == "." );
 }
+
+TEST_CASE( "soil is empty" ) {
+    Soil soil;
+    REQUIRE( soil.is_empty() == true );
+}
+
+TEST_CASE( "soil is not mature" ) {
+    Soil soil;
+    REQUIRE( soil.is_mature() == false );
+}
