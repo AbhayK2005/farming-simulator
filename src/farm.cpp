@@ -5,6 +5,7 @@
 #include "soil.hpp"
 
 Farm::Farm(int rows, int columns, Player *player) : rows(rows), columns(columns), player(player) {
+  player->boundaries(rows, columns);
   for(int i = 0; i < rows; i++) {
     std::vector<Plot *> row;
     for(int j = 0; j < columns; j++) {
