@@ -10,7 +10,7 @@ class Farm {
 private:
     int rows;
     int columns;
-    int day_counter;
+    int day_counter = 1;
     Player *player;
     std::vector<std::vector<Plot *>> plots;
 
